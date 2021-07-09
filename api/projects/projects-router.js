@@ -1,5 +1,8 @@
 // Write your "projects" router here!
 const express = require("express");
+const {
+    validateProjectId,
+} = require("./projects-middleware");
 
 const Projects = require("./projects-model");
 
@@ -13,23 +16,24 @@ router.get("/", (req, res, next) => {
         .catch(next)
 })
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", validateProjectId,(req, res) => {
     console.log(Projects);
+    res.json(req.projects);
 })
 
 router.post("/", (req, res, next) => {
     console.log(Projects);
 })
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", validateProjectId, (req, res, next) => {
     console.log(Projects);
 })
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", validateProjectId, (req, res, next) => {
     console.log(Projects);
 })
 
-router.get("/:id/actions", (eq, res, next) => {
+router.get("/:id/actions", validateProjectId, (eq, res, next) => {
         console.log(Projects);
 })
 
