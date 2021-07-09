@@ -45,7 +45,7 @@ router.put("/:id", validateProjectId, validateName, validateDescription, async (
 router.delete("/:id", validateProjectId, async (req, res, next) => {
     try {
         await Projects.remove(req.params.id);
-        res.json(req.user);
+        res.json(req.projects);
     } catch (err) {
         next(err)
     }
