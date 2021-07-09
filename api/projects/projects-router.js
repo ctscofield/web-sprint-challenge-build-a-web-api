@@ -31,8 +31,15 @@ router.post("/", validateName, validateDescription, async (req, res, next) => {
         .catch(next)
 })
 
-router.put("/:id", validateProjectId, (req, res, next) => {
-    console.log(Projects);
+router.put("/:id", validateProjectId, validateName, validateDescription, async (req, res, next) => {
+    Projects.update(req.params.id, req.body)
+        .then(() => {
+            return Projects.get(req.params.id)
+        })
+        .then(project => {
+            res.json(project)
+        })
+        .catch(next)
 })
 
 router.delete("/:id", validateProjectId, (req, res, next) => {
