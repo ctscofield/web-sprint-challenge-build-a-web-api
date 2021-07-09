@@ -42,12 +42,22 @@ router.put("/:id", validateProjectId, validateName, validateDescription, async (
         .catch(next)
 })
 
-router.delete("/:id", validateProjectId, (req, res, next) => {
-    console.log(Projects);
+router.delete("/:id", validateProjectId, async (req, res, next) => {
+    try {
+        await Projects.remove(req.params.id);
+        res.json(req.user);
+    } catch (err) {
+        next(err)
+    }
 })
 
-router.get("/:id/actions", validateProjectId, (eq, res, next) => {
-        console.log(Projects);
+router.get("/:id/actions", validateProjectId, async (req, res, next) => {
+    try {
+        const result = await Projects.getProjectActions(req.params.id)
+        res.json(result)
+    } catch (err) {
+        next(err)
+    }
 })
 
 
