@@ -8,16 +8,30 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
     Projects.get()
         .then(projects => {
-            console.log(projects);
+            res.status(200).json(projects);
         })
         .catch(next)
 })
 
+router.get("/:id", (req, res, next) => {
+    console.log(Projects);
+})
 
+router.post("/", (req, res, next) => {
+    console.log(Projects);
+})
 
+router.put("/:id", (req, res, next) => {
+    console.log(Projects);
+})
 
+router.delete("/:id", (req, res, next) => {
+    console.log(Projects);
+})
 
-
+router.get("/:id/actions", (eq, res, next) => {
+        console.log(Projects);
+})
 
 
 router.use((err, req, res, next) => { //eslint-disable-line
