@@ -9,14 +9,17 @@ async function validateActionId(req, res, next) {
          if (!actions) {
             next({
                 status: 404,
-                message: "action not found"
+                message: "action not found",
             })
          } else {
             req.actions = actions;
             next();
          }
     } catch (err) {
-        next(err)
+        res.status(500).json({
+            message: "Trouble finding action"
+        })
+        
     }
 }
 

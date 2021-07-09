@@ -32,12 +32,32 @@ router.post("/", validateProject_Id, validateDescription, validateNotes, async (
         .catch(next)
 })
 
-router.put("/:id", (req, res, next) => {
-
+router.put("/:id", validateActionId, validateProject_Id, validateDescription, validateNotes, async (req, res, next) => {
+    Actions.update(req.params.id, req.body)
+        .then(() => {
+            return Actions.get(req.params.id)
+        })
+        .then(action => {
+            res.json(action)
+        })
+        .catch(next)
 })
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", validateActionId, async (req, res, next) => {
+    try {
+        await Actions.remove(req.params.id)
+        res.json(req.actions)
+    } catch (err) {
+        next(err)
+    }
+})
 
+router.use((err, req, res, next) => { //eslint-disable-line
+    res.status(err.status || 500).json({
+      customMessage: "something bad happened",
+      message: err.message,
+      stack: err.stack,
+    })
 })
 
 
