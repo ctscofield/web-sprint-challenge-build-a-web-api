@@ -12,3 +12,22 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Pull your server into this file and start it!
 */
+
+const dotenv = require("dotenv").config(); //eslint-disable-line
+
+const express = require("express");
+
+const server = require("./api/projects");
+
+const PORT = process.env.PORT || 5000;
+
+
+server.use(express.json());
+
+server.use("./api", (__, res) => {
+    res.json({ data: "SANITY CHECK" })
+})
+
+server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`)
+})
