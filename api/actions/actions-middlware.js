@@ -20,7 +20,7 @@ async function validateActionId(req, res, next) {
     }
 }
 
-function validateProject_Id(req, res, next) {
+async function validateProject_Id(req, res, next) {
     const { project_id } = req.body;
     if (!project_id) {
         res.status(400).json({message: "missing required project_id field"})
