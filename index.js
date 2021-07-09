@@ -17,14 +17,14 @@ const dotenv = require("dotenv").config(); //eslint-disable-line
 
 const express = require("express");
 
-const server = require("./api/projects");
+const server = require("./api/server");
 
 const PORT = process.env.PORT || 5000;
 
 
 server.use(express.json());
 
-server.use("./api", (__, res) => {
+server.use("/api", (__, res) => {
     res.json({ data: "SANITY CHECK" })
 })
 
